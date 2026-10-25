@@ -1,7 +1,7 @@
 /* ==========================================================================
    RC Rent — logique du site
    - Catalogue des véhicules
-   - Illustrations SVG générées
+   - Photos des véhicules (illustrations SVG en secours)
    - Sélecteur de disponibilités
    - Formulaire de réservation
    ========================================================================== */
@@ -38,6 +38,7 @@
   const CARS = [
     {
       id: "hilux-dc", name: "Hilux Double Cab", type: "pickup", shape: "pickup",
+      photo: { src: "images/hilux-dc.webp", author: "Chanokchon", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:2021_Toyota_Hilux_Revo_Prerunner_Double-Cab_2.4_Mid.jpg" },
       tagline: "Le pick-up de référence, 4x4 et prêt pour le travail.",
       color: "#f2f2f0", price: 95, units: 4,
       seats: 5, transmission: "Automatique", fuel: "Diesel", drive: "4x4",
@@ -45,6 +46,7 @@
     },
     {
       id: "hilux-gr", name: "Hilux GR Sport", type: "pickup", shape: "pickup",
+      photo: { src: "images/hilux-gr.webp", author: "LuvsMG481", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:2024_Toyota_HiLux_GR_Sport_front.jpg" },
       tagline: "Suspensions sport et look affirmé.",
       color: "#3a3d42", accent: "#e1251b", price: 125, units: 2,
       seats: 5, transmission: "Automatique", fuel: "Diesel", drive: "4x4",
@@ -52,6 +54,7 @@
     },
     {
       id: "lc300", name: "Land Cruiser 300", type: "4x4", shape: "suv",
+      photo: { src: "images/lc300.webp", author: "TTTNIS", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:2021_Toyota_Land_Cruieser_300_ZX.jpg" },
       tagline: "Le vaisseau amiral. V6 biturbo, 7 places.",
       color: "#e9e7e2", darkColor: "#2b2c2f", price: 220, units: 2,
       seats: 7, transmission: "Automatique", fuel: "Diesel", drive: "4x4",
@@ -59,6 +62,7 @@
     },
     {
       id: "lc70", name: "Land Cruiser 70", type: "4x4", shape: "boxy",
+      photo: { src: "images/lc70.webp", author: "TuRbO_J", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:2015_Toyota_Land_Cruiser_(VDJ76R)_GXL_5-door_wagon_(19039611238).jpg" },
       tagline: "L'icône des expéditions. Mécanique indestructible.",
       color: "#d8c6a5", price: 160, units: 1,
       seats: 5, transmission: "Manuelle", fuel: "Diesel", drive: "4x4",
@@ -66,6 +70,7 @@
     },
     {
       id: "prado", name: "Land Cruiser Prado", type: "4x4", shape: "suv",
+      photo: { src: "images/prado.webp", author: "Ethan Llamas", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:2024_Toyota_Land_Cruiser_Prado_2.4_Turbo_in_Avant_Garde_Bronze,_front_left.jpg" },
       tagline: "Robuste en piste, raffiné en ville.",
       color: "#8a8f96", price: 175, units: 3,
       seats: 7, transmission: "Automatique", fuel: "Diesel", drive: "4x4",
@@ -73,6 +78,7 @@
     },
     {
       id: "fortuner", name: "Fortuner", type: "suv", shape: "suv",
+      photo: { src: "images/fortuner.webp", author: "オーバードライブ83", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:2021_Toyota_Fortuner_2.4_VRZ_4x2_GUN165R_(20220215).jpg" },
       tagline: "Sept places et la base technique du Hilux.",
       color: "#5b6470", price: 130, units: 2,
       seats: 7, transmission: "Automatique", fuel: "Diesel", drive: "4x4",
@@ -80,6 +86,7 @@
     },
     {
       id: "rav4", name: "RAV4 Hybride", type: "suv", shape: "compact",
+      photo: { src: "images/rav4.webp", author: "Alexander Migl", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:2019_Toyota_RAV4_Hybrid_01.jpg" },
       tagline: "Sobre, silencieux et parfait au quotidien.",
       color: "#3f6c94", price: 85, units: 3,
       seats: 5, transmission: "Automatique", fuel: "Hybride", drive: "AWD",
@@ -292,11 +299,29 @@
 </svg>`;
   }
 
+  /** Photo détourée du véhicule ; l'illustration SVG sert de secours. */
+  function carArt(car, opts = {}) {
+    if (!car.photo) return carSVG(car, opts);
+    const eager = opts.eager ? ' fetchpriority="high"' : ' loading="lazy"';
+    return `<figure class="photo"><img src="${car.photo.src}" alt="Toyota ${car.name}" decoding="async"${eager}></figure>`;
+  }
+
   function paintArt(root = document) {
     $$("[data-car-art]", root).forEach((el) => {
       const car = byId(el.dataset.carArt);
-      if (car) el.innerHTML = carSVG(car, { variant: el.dataset.variant });
+      if (!car) return;
+      el.innerHTML = carArt(car, { variant: el.dataset.variant, eager: el.dataset.size === "hero" });
+      const img = $("img", el);
+      if (img) img.addEventListener("error", () => { el.innerHTML = carSVG(car, { variant: el.dataset.variant }); }, { once: true });
     });
+  }
+
+  function renderCredits() {
+    const el = $("#photoCredits");
+    if (!el) return;
+    el.innerHTML = "Photos : " + CARS.filter((c) => c.photo).map((c) =>
+      `<a href="${c.photo.page}" target="_blank" rel="noopener">${c.name}</a> © ${c.photo.author} (${c.photo.license})`
+    ).join(" · ") + ". Arrière-plans retirés.";
   }
 
   /* ---------- État du sélecteur ---------- */
@@ -438,7 +463,7 @@
     form.reset();
     $$(".is-invalid", form).forEach((el) => el.classList.remove("is-invalid"));
 
-    $("#bookingArt").innerHTML = carSVG(car);
+    $("#bookingArt").innerHTML = carArt(car);
     $("#bookingEyebrow").textContent = `${TYPE_LABELS[car.type]} · ${fmtMoney(car.price)} / jour`;
     $("#bookingTitle").textContent = car.name;
 
@@ -652,6 +677,7 @@
 
   /* ---------- Démarrage ---------- */
   paintArt();
+  renderCredits();
   syncDateInputs();
   renderFleet();
 })();
