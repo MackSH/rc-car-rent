@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RC Rent — Location Toyota Hilux &amp; Land Cruiser</title>
+  <meta name="description" content="Louez une Toyota Hilux, un Land Cruiser ou un SUV Toyota en quelques clics. Disponibilités en temps réel et réservation en ligne.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#top" class="nav__logo" aria-label="RC Rent, accueil">
+        <span class="nav__mark" aria-hidden="true"></span>RC Rent
+      </a>
+      <nav class="nav__links" aria-label="Navigation principale">
+        <a href="#hilux">Hilux</a>
+        <a href="#land-cruiser">Land Cruiser</a>
+        <a href="#flotte">Flotte</a>
+        <a href="#avantages">Avantages</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a href="#flotte" class="nav__cta">Réserver</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- Hero -->
+    <section class="hero">
+      <p class="eyebrow reveal">Location Toyota</p>
+      <h1 class="hero__title reveal">Prêt pour<br>tous les terrains.</h1>
+      <p class="hero__lead reveal">Hilux. Land Cruiser. Prado. La légende de la fiabilité, disponible quand vous en avez besoin.</p>
+      <div class="hero__actions reveal">
+        <a href="#flotte" class="btn btn--primary">Voir les disponibilités</a>
+        <a href="#land-cruiser" class="link-arrow">En savoir plus</a>
+      </div>
+      <div class="hero__art reveal" data-car-art="lc300" data-size="hero"></div>
+
+      <!-- Quick search -->
+      <form class="quick" id="quickSearch" aria-label="Recherche rapide">
+        <label class="quick__field">
+          <span>Départ</span>
+          <input type="date" id="qsStart" required>
+        </label>
+        <span class="quick__sep" aria-hidden="true"></span>
+        <label class="quick__field">
+          <span>Retour</span>
+          <input type="date" id="qsEnd" required>
+        </label>
+        <button type="submit" class="btn btn--primary quick__btn">Rechercher</button>
+      </form>
+    </section>
+
+    <!-- Hilux feature -->
+    <section class="feature feature--light" id="hilux">
+      <div class="feature__text">
+        <p class="eyebrow reveal">Toyota Hilux</p>
+        <h2 class="feature__title reveal">Increvable.<br>Par nature.</h2>
+        <p class="feature__lead reveal">Le pick-up qui a traversé les déserts, les chantiers et les montagnes. Double cabine, 4x4 et une benne prête pour tout ce que vous emportez.</p>
+        <div class="feature__actions reveal">
+          <button class="btn btn--primary" data-book="hilux-dc">Louer à partir de <span data-price="hilux-dc"></span>/jour</button>
+          <a href="#flotte" class="link-arrow" data-filter-link="pickup">Tous les pick-up</a>
+        </div>
+      </div>
+      <div class="feature__art reveal" data-car-art="hilux-dc" data-size="feature"></div>
+      <dl class="specs reveal">
+        <div><dt>2.8 L</dt><dd>Turbo diesel</dd></div>
+        <div><dt>500 Nm</dt><dd>Couple</dd></div>
+        <div><dt>1 t</dt><dd>Charge utile</dd></div>
+        <div><dt>3,5 t</dt><dd>Remorquage</dd></div>
+      </dl>
+    </section>
+
+    <!-- Land Cruiser feature (dark) -->
+    <section class="feature feature--dark" id="land-cruiser">
+      <div class="feature__text">
+        <p class="eyebrow eyebrow--warm reveal">Land Cruiser 300</p>
+        <h2 class="feature__title reveal">Le roi.<br>Sur toutes les routes.</h2>
+        <p class="feature__lead reveal">Sept places, un V6 biturbo et un confort de grand voyageur. Le Land Cruiser va là où les autres s'arrêtent, et vous y emmène reposé.</p>
+        <div class="feature__actions reveal">
+          <button class="btn btn--light" data-book="lc300">Louer à partir de <span data-price="lc300"></span>/jour</button>
+          <a href="#flotte" class="link-arrow link-arrow--light" data-filter-link="4x4">Tous les 4x4</a>
+        </div>
+      </div>
+      <div class="feature__art reveal" data-car-art="lc300" data-size="feature" data-variant="dark"></div>
+      <dl class="specs specs--dark reveal">
+        <div><dt>3.3 L</dt><dd>V6 biturbo</dd></div>
+        <div><dt>7</dt><dd>Places</dd></div>
+        <div><dt>10</dt><dd>Rapports auto</dd></div>
+        <div><dt>700 mm</dt><dd>Passage de gué</dd></div>
+      </dl>
+    </section>
+
+    <!-- Tiles -->
+    <section class="tiles">
+      <article class="tile tile--sand">
+        <p class="eyebrow">Land Cruiser 70</p>
+        <h3 class="tile__title">L'original.<br>Sans compromis.</h3>
+        <p class="tile__lead">Châssis échelle, essieux rigides. L'outil des expéditions.</p>
+        <div class="tile__actions">
+          <button class="btn btn--primary btn--small" data-book="lc70">Réserver</button>
+        </div>
+        <div class="tile__art" data-car-art="lc70" data-size="tile"></div>
+      </article>
+      <article class="tile tile--mist">
+        <p class="eyebrow">Land Cruiser Prado</p>
+        <h3 class="tile__title">Robuste.<br>Raffiné.</h3>
+        <p class="tile__lead">Le meilleur des deux mondes, en ville comme en piste.</p>
+        <div class="tile__actions">
+          <button class="btn btn--primary btn--small" data-book="prado">Réserver</button>
+        </div>
+        <div class="tile__art" data-car-art="prado" data-size="tile"></div>
+      </article>
+    </section>
+
+    <!-- Fleet selector -->
+    <section class="fleet" id="flotte">
+      <div class="section-head">
+        <p class="eyebrow reveal">La flotte</p>
+        <h2 class="section-title reveal">Choisissez votre Toyota.</h2>
+        <p class="section-lead reveal">Indiquez vos dates : nous affichons en temps réel les véhicules disponibles.</p>
+      </div>
+
+      <div class="selector" role="search" aria-label="Filtrer les véhicules">
+        <div class="selector__dates">
+          <label class="field">
+            <span class="field__label">Date de départ</span>
+            <input type="date" id="fStart" class="field__input">
+          </label>
+          <label class="field">
+            <span class="field__label">Date de retour</span>
+            <input type="date" id="fEnd" class="field__input">
+          </label>
+          <label class="field">
+            <span class="field__label">Transmission</span>
+            <select id="fTrans" class="field__input">
+              <option value="all">Toutes</option>
+              <option value="Automatique">Automatique</option>
+              <option value="Manuelle">Manuelle</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field__label">Places</span>
+            <select id="fSeats" class="field__input">
+              <option value="0">Indifférent</option>
+              <option value="5">5 et plus</option>
+              <option value="7">7 et plus</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="selector__bar">
+          <div class="segmented" role="tablist" aria-label="Catégorie" id="fType">
+            <button role="tab" aria-selected="true" data-type="all">Tous</button>
+            <button role="tab" aria-selected="false" data-type="pickup">Pick-up</button>
+            <button role="tab" aria-selected="false" data-type="4x4">4x4</button>
+            <button role="tab" aria-selected="false" data-type="suv">SUV</button>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="fAvail" checked>
+            <span class="toggle__track" aria-hidden="true"></span>
+            <span>Disponibles uniquement</span>
+          </label>
+        </div>
+      </div>
+
+      <p class="fleet__summary" id="fleetSummary" aria-live="polite"></p>
+      <div class="grid" id="fleetGrid"></div>
+      <div class="empty" id="fleetEmpty" hidden>
+        <h3>Aucun véhicule ne correspond.</h3>
+        <p>Essayez d'autres dates ou élargissez vos critères.</p>
+        <button class="btn btn--secondary" id="resetFilters">Réinitialiser les filtres</button>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits" id="avantages">
+      <div class="section-head">
+        <p class="eyebrow reveal">Pourquoi RC Rent</p>
+        <h2 class="section-title reveal">Simple. Fiable. Comme une Toyota.</h2>
+      </div>
+      <div class="benefits__grid">
+        <article class="benefit reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Zm-1 14-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6Z"/></svg>
+          <h3>Assurance incluse</h3>
+          <p>Responsabilité civile et assistance 24 h/24 sur chaque location.</p>
+        </article>
+        <article class="benefit reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 10.4V6h-2v7.4l5 3 1-1.7-4-2.3Z"/></svg>
+          <h3>Réservation en 2 minutes</h3>
+          <p>Choisissez vos dates, votre véhicule, et c'est réglé.</p>
+        </article>
+        <article class="benefit reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg>
+          <h3>Livraison possible</h3>
+          <p>À l'aéroport, à votre hôtel ou sur votre chantier.</p>
+        </article>
+        <article class="benefit reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4H4V6h16v2Zm-6 7H6v-2h8v2Z"/></svg>
+          <h3>Prix transparents</h3>
+          <p>Le total est affiché avant de réserver. Aucun frais caché.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <div class="section-head">
+        <h2 class="section-title reveal">Questions fréquentes.</h2>
+      </div>
+      <div class="faq__list">
+        <details>
+          <summary>Quelles sont les conditions pour louer ?</summary>
+          <p>Avoir au moins 21 ans, un permis de conduire valide depuis 2 ans et une pièce d'identité. Une caution est demandée au moment du départ.</p>
+        </details>
+        <details>
+          <summary>Le kilométrage est-il illimité ?</summary>
+          <p>Oui, toutes nos locations incluent le kilométrage illimité.</p>
+        </details>
+        <details>
+          <summary>Puis-je annuler ma réservation ?</summary>
+          <p>L'annulation est gratuite jusqu'à 48 heures avant la prise du véhicule.</p>
+        </details>
+        <details>
+          <summary>Les véhicules peuvent-ils sortir des routes goudronnées ?</summary>
+          <p>Oui. Nos Hilux et Land Cruiser sont préparés pour la piste. Seule la conduite hors piste extrême (compétition, franchissement de rivière profonde) est exclue.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p>RC Rent — Location de véhicules Toyota.</p>
+      <p class="footer__muted">Toyota, Hilux et Land Cruiser sont des marques de Toyota Motor Corporation. Illustrations non contractuelles.</p>
+      <p class="footer__muted">© <span id="year"></span> RC Rent. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- Booking dialog -->
+  <dialog class="sheet" id="bookingDialog" aria-labelledby="bookingTitle">
+    <button class="sheet__close" type="button" data-close aria-label="Fermer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6L19 6.4 17.6 5 12 10.6 6.4 5Z"/></svg>
+    </button>
+
+    <div class="sheet__body" id="bookingView">
+      <div class="sheet__head">
+        <div class="sheet__art" id="bookingArt"></div>
+        <p class="eyebrow" id="bookingEyebrow"></p>
+        <h2 id="bookingTitle" class="sheet__title"></h2>
+      </div>
+
+      <form id="bookingForm" class="form" novalidate>
+        <fieldset>
+          <legend>Vos dates</legend>
+          <div class="form__row">
+            <label class="field">
+              <span class="field__label">Départ</span>
+              <input type="date" name="start" id="bStart" class="field__input" required>
+            </label>
+            <label class="field">
+              <span class="field__label">Heure</span>
+              <select name="startTime" class="field__input" id="bStartTime"></select>
+            </label>
+          </div>
+          <div class="form__row">
+            <label class="field">
+              <span class="field__label">Retour</span>
+              <input type="date" name="end" id="bEnd" class="field__input" required>
+            </label>
+            <label class="field">
+              <span class="field__label">Heure</span>
+              <select name="endTime" class="field__input" id="bEndTime"></select>
+            </label>
+          </div>
+          <label class="field">
+            <span class="field__label">Lieu de prise en charge</span>
+            <select name="location" class="field__input" required>
+              <option value="Agence centrale">Agence centrale</option>
+              <option value="Aéroport">Aéroport (+ frais de livraison)</option>
+              <option value="Livraison à l'adresse">Livraison à votre adresse (+ frais)</option>
+            </select>
+          </label>
+          <p class="form__error" id="dateError" role="alert" hidden></p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Options</legend>
+          <div class="options" id="bookingOptions"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Vos coordonnées</legend>
+          <div class="form__row">
+            <label class="field">
+              <span class="field__label">Prénom</span>
+              <input type="text" name="firstName" class="field__input" autocomplete="given-name" required>
+            </label>
+            <label class="field">
+              <span class="field__label">Nom</span>
+              <input type="text" name="lastName" class="field__input" autocomplete="family-name" required>
+            </label>
+          </div>
+          <label class="field">
+            <span class="field__label">E-mail</span>
+            <input type="email" name="email" class="field__input" autocomplete="email" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Téléphone</span>
+            <input type="tel" name="phone" class="field__input" autocomplete="tel" pattern="[\d\s\+\-\.\(\)]{8,}" required>
+          </label>
+          <label class="field">
+            <span class="field__label">N° de permis de conduire</span>
+            <input type="text" name="license" class="field__input" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Message (facultatif)</span>
+            <textarea name="message" class="field__input" rows="3" placeholder="Numéro de vol, adresse de livraison, besoins particuliers…"></textarea>
+          </label>
+          <label class="check">
+            <input type="checkbox" name="terms" required>
+            <span>J'ai au moins 21 ans, un permis valide depuis plus de 2 ans, et j'accepte les conditions de location.</span>
+          </label>
+        </fieldset>
+
+        <div class="summary" id="bookingSummary" aria-live="polite"></div>
+
+        <button type="submit" class="btn btn--primary btn--block" id="bookingSubmit">Confirmer la réservation</button>
+        <p class="form__note">Aucun paiement maintenant. Vous réglez au retrait du véhicule.</p>
+      </form>
+    </div>
+
+    <div class="sheet__body done" id="bookingDone" hidden>
+      <div class="done__icon" aria-hidden="true">
+        <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="m15 27 7 7 15-16"/></svg>
+      </div>
+      <h2 class="sheet__title">Réservation confirmée.</h2>
+      <p class="done__lead" id="doneText"></p>
+      <div class="done__ref">Référence <strong id="doneRef"></strong></div>
+      <button class="btn btn--primary" type="button" data-close>Terminé</button>
+    </div>
+  </dialog>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
