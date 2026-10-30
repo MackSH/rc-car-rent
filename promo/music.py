@@ -2,6 +2,7 @@
 
 Usage : python3 music.py sortie.wav [durée_en_secondes]
 120 BPM, progression Do - Sol - La m - Fa, calée sur les scènes de ad.html.
+La musique est volontairement sobre : elle passe sous la voix off.
 """
 import sys
 import wave
@@ -12,7 +13,9 @@ SR = 44100
 BPM = 120
 BEAT = 60 / BPM
 out_path = sys.argv[1]
-DUR = float(sys.argv[2]) if len(sys.argv) > 2 else 25.0
+DUR = float(sys.argv[2]) if len(sys.argv) > 2 else 32.0
+# Repères calés sur les scènes de ad.html (secondes)
+IMPACT, HILUX, OUTRO = 2.4, 8.8, 25.8
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
 
@@ -65,11 +68,11 @@ while t < DUR:
     k += 1
 
 # Montée (bruit filtré) puis impact à l'entrée du Land Cruiser
-rise_len = 2.6
+rise_len = min(2.6, IMPACT)
 noise = rng.standard_normal(int(rise_len * SR))
 kernel = np.ones(30) / 30
 noise = np.convolve(noise, kernel, mode="same")
-add(noise * np.linspace(0, 1, len(noise)) ** 2.5, 3.0 - rise_len, 0.5)
+add(noise * np.linspace(0, 1, len(noise)) ** 2.5, IMPACT - rise_len, 0.5)
 
 
 def kick(gain=1.0, length=0.45):
@@ -93,10 +96,10 @@ def pluck(freq, length=0.4):
 
 boom_t = np.arange(int(1.6 * SR)) / SR
 boom = np.sin(2 * np.pi * (38 + 40 * np.exp(-boom_t * 6)) * boom_t) * np.exp(-boom_t * 2.2)
-add(boom, 3.0, 0.9)
+add(boom, IMPACT, 0.9)
 
 # Rythme : de 3 s jusqu'à l'écran final (21,5 s)
-GROOVE_START, GROOVE_END = 3.0, 21.5
+GROOVE_START, GROOVE_END = IMPACT, OUTRO
 b = 0
 while GROOVE_START + b * BEAT < GROOVE_END:
     t = GROOVE_START + b * BEAT
@@ -107,7 +110,7 @@ while GROOVE_START + b * BEAT < GROOVE_END:
     b += 1
 
 # Arpège en croches, à partir de la scène Hilux
-ARP_START = 7.0
+ARP_START = HILUX
 step = BEAT / 2
 i = 0
 while ARP_START + i * step < GROOVE_END:

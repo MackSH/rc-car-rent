@@ -47,8 +47,14 @@ Pour utiliser vos propres photos, remplacez ces fichiers (fond transparent conse
 
 ## Vidéo publicitaire
 
-`promo/rc-rent-pub.mp4` : vidéo verticale 1080 × 1920, 25 s, pour Instagram, TikTok, Facebook ou les statuts WhatsApp.
+`promo/rc-rent-pub.mp4` : vidéo verticale 1080 × 1920, 32 s, avec voix off féminine, pour Instagram, TikTok, Facebook ou les statuts WhatsApp.
 
 - `promo/ad.html` : l'animation (ouvrir dans un navigateur pour un aperçu en direct)
 - `promo/music.py` : musique originale générée par synthèse (libre de droits)
-- `promo/render.js` : régénère la vidéo après une modification (`node promo/render.js`, nécessite Playwright, ffmpeg et numpy)
+- `promo/voice.py` : voix off (texte et minutage des phrases), synthèse [Piper](https://github.com/rhasspy/piper)
+- `promo/render.js` : régénère la vidéo après une modification :
+  `PIPER_MODEL=/chemin/fr_FR-siwis-medium.onnx node promo/render.js`
+  (nécessite Playwright, ffmpeg, numpy et `pip install piper-tts`)
+
+Voix : modèle Piper `fr_FR-siwis-medium`, entraîné sur le corpus SIWIS (CC BY 4.0).
+Mention à ajouter en légende de publication si possible : « Voix de synthèse : Piper / SIWIS (CC BY 4.0) ».

@@ -1,6 +1,9 @@
 // Capture ad.html image par image, puis assemble la vidéo avec la musique.
 // Usage : node promo/render.js [dossier-de-travail]
-// Prérequis : Playwright (Chromium), ffmpeg, python3 + numpy (musique).
+// Prérequis : Playwright (Chromium), ffmpeg, python3 + numpy (musique),
+// piper-tts et le modèle fr_FR-siwis-medium.onnx (voix off) :
+//   PIPER_MODEL=/chemin/fr_FR-siwis-medium.onnx node promo/render.js
+// Variable PYTHON : interpréteur où piper-tts est installé (défaut : python3).
 const { chromium } = require("playwright");
 const { execFileSync } = require("child_process");
 const fs = require("fs");
@@ -30,15 +33,23 @@ const out = path.join(here, "rc-rent-pub.mp4");
   await browser.close();
   console.log(`\r${total}/${total} images`);
 
+  const python = process.env.PYTHON || "python3";
   const music = path.join(work, "music.wav");
-  execFileSync("python3", [path.join(here, "music.py"), music, String(duration)], { stdio: "inherit" });
+  execFileSync(python, [path.join(here, "music.py"), music, String(duration)], { stdio: "inherit" });
+  const voice = path.join(work, "voice.wav");
+  execFileSync(python, [path.join(here, "voice.py"), voice, process.env.PIPER_MODEL || "fr_FR-siwis-medium.onnx", String(duration)], { stdio: "inherit" });
 
   execFileSync("ffmpeg", [
     "-y", "-loglevel", "error",
     "-framerate", String(FPS), "-i", path.join(frames, "f%04d.jpg"),
-    "-i", music,
+    "-i", music, "-i", voice,
     "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p",
-    "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "44100",
+    // Musique baissée et « compressée » par la voix (ducking), puis mixage
+    "-filter_complex",
+    "[1:a]volume=0.55[m];[2:a]aformat=channel_layouts=stereo,asplit[v1][v2];" +
+    "[m][v1]sidechaincompress=threshold=0.02:ratio=8:attack=15:release=350[duck];" +
+    "[duck][v2]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]",
+    "-map", "0:v", "-map", "[a]", "-ar", "44100",
     "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
     out,
   ], { stdio: "inherit" });

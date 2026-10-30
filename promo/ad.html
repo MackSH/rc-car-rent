@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>RC Rent — vidéo publicitaire</title>
 <!--
-  Animation de la vidéo publicitaire (1080 × 1920, 25 s).
+  Animation de la vidéo publicitaire (1080 × 1920, 32 s, avec voix off).
   Chaque image est calculée par render(t) : le rendu est déterministe,
   ce qui permet à render.js de capturer la vidéo image par image.
   Ouvrir ce fichier dans un navigateur lance un aperçu en temps réel.
@@ -185,7 +185,32 @@
 </section>
 
 <script>
-  const DURATION = 25;
+  // Les animations sont écrites sur une base de 25 s ; TIMELINE les recale
+  // sur la voix off (32 s). Pour chaque scène : début/fin d'origine, début/fin
+  // dans la vidéo, et durée gardée à vitesse normale au début et à la fin
+  // (entrées et fondus) ; seul le milieu de la scène est étiré.
+  const BASE_DURATION = 25;
+  const TIMELINE = [
+    { from: [0, 3.0], to: [0, 2.4], keep: [0.9, 0.4] },        // Accroche
+    { from: [3.0, 7.2], to: [2.4, 8.8], keep: [1.8, 0.5] },    // Land Cruiser 300
+    { from: [7.2, 11.2], to: [8.8, 12.4], keep: [1.8, 0.5] },  // Hilux
+    { from: [11.2, 14.3], to: [12.4, 16.8], keep: [1.6, 0.5] },// Land Cruiser 70
+    { from: [14.3, 18.3], to: [16.8, 22.0], keep: [0, 0] },    // Gamme (étirée uniformément)
+    { from: [18.3, 21.5], to: [22.0, 25.8], keep: [1.6, 0.5] },// Réservation
+    { from: [21.5, 25], to: [25.8, 32], keep: [2.0, 0.6] },    // Fin
+  ];
+  const DURATION = TIMELINE[TIMELINE.length - 1].to[1];
+
+  /** Temps de la vidéo -> temps des animations d'origine. */
+  function remap(T) {
+    const seg = TIMELINE.find((s) => T < s.to[1]) || TIMELINE[TIMELINE.length - 1];
+    const [a, b] = seg.from, [A, B] = seg.to, [head, tail] = seg.keep;
+    const d = T - A;
+    if (d <= head) return a + d;
+    if (T >= B - tail) return b - (B - T);
+    const x = (d - head) / (B - tail - A - head);
+    return a + head + x * (b - tail - a - head);
+  }
   const FLEET = [
     { src: "../images/prado.webp", name: "Land Cruiser Prado", price: 175, width: 840 },
     { src: "../images/fortuner.webp", name: "Fortuner", price: 130 },
@@ -227,7 +252,8 @@
     el.style.transform = `translateX(calc(-50% + ${x}px)) scale(${scale}) ${extra}`;
   }
 
-  function render(t) {
+  function render(T) {
+    const t = remap(T);
     // 1. Accroche
     const a1 = sceneAlpha(t, 0, 3.2, 0.01, 0.5);
     $("s1").style.opacity = a1;
@@ -305,7 +331,7 @@
     $("s6p").style.strokeDashoffset = 40 * (1 - easeOut(prog(t, 20.8, 21.2)));
 
     // 7. Fin
-    $("s7").style.opacity = sceneAlpha(t, 21.4, DURATION + 1, 0.5, 0.01);
+    $("s7").style.opacity = sceneAlpha(t, 21.4, BASE_DURATION + 1, 0.5, 0.01);
     lineIn($("s7logo"), t, 21.7, 0.9, 60);
     lineIn($("s7a"), t, 22.1);
     lineIn($("s7b"), t, 22.5);
