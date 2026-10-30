@@ -44,3 +44,11 @@ Les crédits sont affichés en pied de page (voir `photo` dans `CARS`, `js/app.j
 | `images/rav4.webp` | Alexander Migl | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:2019_Toyota_RAV4_Hybrid_01.jpg) |
 
 Pour utiliser vos propres photos, remplacez ces fichiers (fond transparent conseillé) en gardant les mêmes noms.
+
+## Vidéo publicitaire
+
+`promo/rc-rent-pub.mp4` : vidéo verticale 1080 × 1920, 25 s, pour Instagram, TikTok, Facebook ou les statuts WhatsApp.
+
+- `promo/ad.html` : l'animation (ouvrir dans un navigateur pour un aperçu en direct)
+- `promo/music.py` : musique originale générée par synthèse (libre de droits)
+- `promo/render.js` : régénère la vidéo après une modification (`node promo/render.js`, nécessite Playwright, ffmpeg et numpy)
